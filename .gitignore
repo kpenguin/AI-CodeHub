@@ -1,5 +1,7 @@
 # Sensitive configuration settings
 myprivate.config
+myprivate.yaml
+myprivate.py
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
