@@ -1,6 +1,6 @@
-# Get user information
-# GET https://cloud.leonardo.ai/api/rest/v1/me
-# This endpoint will return your user information, including your user ID.
+## Get user information
+## GET https://cloud.leonardo.ai/api/rest/v1/me
+## This endpoint will return your user information, including your user ID.
 
 ## Read in configuration file
 import yaml
@@ -14,7 +14,7 @@ myprivate = read_yaml("myprivate.config")
 # print(myprivate['LEONARDOAI'])
 # print(myprivate['LEONARDOAI']['APIKey'])
 
-## Validation
+## Validation configuration file
 import pytest
 
 def test_validation_yaml():

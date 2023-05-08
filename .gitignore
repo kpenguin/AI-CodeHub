@@ -2,6 +2,10 @@
 myprivate.config
 myprivate.yaml
 myprivate.py
+mytest.py
+*.json
+*.txt
+
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
