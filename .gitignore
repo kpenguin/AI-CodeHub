@@ -5,6 +5,8 @@ myprivate.py
 mytest.py
 *.json
 *.txt
+*.csv
+
 
 
 # Byte-compiled / optimized / DLL files
