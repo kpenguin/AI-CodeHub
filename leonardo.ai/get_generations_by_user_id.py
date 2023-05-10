@@ -8,6 +8,7 @@
 from pathlib import Path
 myfile = Path(__file__).stem
 
+
 ## Read in configuration file
 import yaml
 
@@ -17,6 +18,9 @@ def read_yaml(file_path):
 
 myPrivateConfig = "../myprivate.config"
 myprivate = read_yaml(myPrivateConfig)
+# print(myprivate)
+# print(myprivate['LEONARDOAI'])
+# print(myprivate['LEONARDOAI']['APIKey'])
 
 
 ## Validation configuration file
@@ -34,42 +38,65 @@ def test_validation_yaml():
         # only show the first error
         read_yaml(file_path=myPrivateConfig)
 
+
+## Get Leonardo.AI Generations
+import requests
+
+def read_leonardoai_gens(userID, offset, limit):
+    url = "https://cloud.leonardo.ai/api/rest/v1/generations/user/" + userId + "?offset=" + offset + "&limit=" + limit
+
+    headers = {
+        "accept": "application/json",
+        "authorization": myprivate['LEONARDOAI']['APIKey']
+    }
+
+    response = requests.get(url, headers=headers)
+    ##Type: <class 'requests.models.Response'>
+
+    status_code = response.status_code
+    status_ok = response.ok
+
+    print(f'The status code is {status_code}.')
+    print(f'The response is {status_ok}.')
+
+    if response.status_code > 400:
+        print("Response isn't ok!")
+
+    else:
+        print('Response is ok!')
+        response_dict = response.json()
+        ##Type: <class 'dict'>
+
+        with open("raw.json", "w") as write_file:
+            json.dump(response_dict, write_file)
+
+        with open(myfile + "-raw.json", "w") as write_file:
+            json.dump(response_dict, write_file)
+
+        with open(myfile + "-pretty.json", "w") as write_file:
+            json.dump(response_dict, write_file, indent=4)
+
+        with open(myfile + "-sorted.json", "w") as write_file:
+            json.dump(response_dict, write_file, indent=4, sort_keys=True)
+
+        return response_dict
+
+import json
+
+def read_file(file_name):
+    with open(file_name) as f:
+        mydataf = json.load(f)
+    print("Done reading data from a file")
+    #print (type(mydataf))
+    ##Type: <class 'dict'>
+    return mydataf
+
 ###############################################################################
 
 
 ## Main
-import requests
-
 userId = myprivate['LEONARDOAI']['userId']
 offset = '0'
-limit = '1'
-url = "https://cloud.leonardo.ai/api/rest/v1/generations/user/" + userId + "?offset=" + offset + "&limit=" + limit
+limit = '10'
 
-
-headers = {
-    "accept": "application/json",
-    "authorization": myprivate['LEONARDOAI']['APIKey']
-}
-
-response = requests.get(url, headers=headers)
-print(response.text)
-
-import json
-mydata = response.text
-
-with open(myfile + "-raw.json", "w") as write_file:
-    json.dump(mydata, write_file)
-
-with open(myfile + "-pretty.json", "w") as write_file:
-    json.dump(mydata, write_file, indent=4)
-
-with open(myfile + "-sorted.json", "w") as write_file:
-    json.dump(mydata, write_file, indent=4, sort_keys=True)
-
-""" 
-import pandas as pd
-d = pd.read_json(response.text)
-df = pd.json_normalize(d)
-print(df)
-# df.to_csv('gen_by_userid.csv', encoding='utf-8', index=False)
- """
+mydata = read_leonardoai_gens(userId, offset, limit)
