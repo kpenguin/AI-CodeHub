@@ -3,6 +3,7 @@ myprivate.config
 myprivate.yaml
 myprivate.py
 mytest.py
+myclass.py
 *.json
 *.txt
 *.csv
