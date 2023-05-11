@@ -4,6 +4,7 @@ myprivate.yaml
 myprivate.py
 mytest.py
 myclass.py
+my*.py
 *.config
 *.yaml
 *.ini
