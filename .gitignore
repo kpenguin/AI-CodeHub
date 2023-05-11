@@ -4,9 +4,12 @@ myprivate.yaml
 myprivate.py
 mytest.py
 myclass.py
+*.config
+*.yaml
 *.json
 *.txt
 *.csv
+*.out
 
 
 
