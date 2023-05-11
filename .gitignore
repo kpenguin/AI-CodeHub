@@ -6,6 +6,7 @@ mytest.py
 myclass.py
 *.config
 *.yaml
+*.ini
 *.json
 *.txt
 *.csv
