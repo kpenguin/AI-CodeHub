@@ -13,7 +13,7 @@ my*.py
 *.csv
 *.out
 *.log
-
+logging.*
 
 
 # Byte-compiled / optimized / DLL files
