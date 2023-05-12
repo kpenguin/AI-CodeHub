@@ -12,6 +12,7 @@ my*.py
 *.txt
 *.csv
 *.out
+*.log
 
 
 
